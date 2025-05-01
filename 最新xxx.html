@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editable Chat Interface</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #ece5dd;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .chat-wrapper {
+            position: relative;
+            width: 414px; /* Image width */
+            height: 896px; /* Image height */
+            background: url('https://i.postimg.cc/Mpd5sq7r/photo-2025-04-29-21-19-10.jpg') no-repeat center center;
+            background-size: cover;
+        }
+
+        .editable-time {
+            position: absolute;
+            top: 15px;
+            left: 45px;
+            font-size: 18px; /* 修改字体大小，例如改为18px */
+            font-weight: bold; /* 设置为加粗 */
+            color: #000; /* 黑色字体 */
+            background-color: rgb(245 241 241); /* 背景颜色 */
+            padding: 2px 6px;
+            border-radius: 4px;
+            cursor: text;
+        }
+
+        .editable-phone {
+            position: absolute;
+            top: 582px;
+            left: 25px;
+            background-color: rgb(255 255 255); /* 背景颜色 */
+            padding: 2px 4px;
+            border-radius: 4px;
+            font-size: 22px; /* 修改字体大小，例如改为22px */
+            font-weight: 430; /* 设置字体粗细为500，可调整为100-900之间的任意值 */
+            color: #37911b; /* 绿色字体 */
+            cursor: text;
+            text-decoration: underline; /* 添加下划线 */
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-wrapper">
+        <!-- Editable time overlay -->
+        <div class="editable-time" contenteditable="true" id="time">
+            21:19
+        </div>
+
+        <!-- Editable phone number overlay -->
+        <div class="editable-phone" contenteditable="true">
+            405-274-3027
+        </div>
+    </div>
+
+    <script>
+       // Function to update time to Eastern Time (ET) in 12-hour format without AM/PM
+       function updateTimeToEastern() {
+           const now = new Date();
+           // Convert to Eastern Time (ET)
+           const options = {
+               timeZone: "America/New_York",
+               hour: "2-digit",
+               minute: "2-digit",
+               hour12: true, // 12-hour format
+           };
+           let easternTime = now.toLocaleTimeString("en-US", options);
+
+           // Remove AM/PM by replacing it with an empty string
+           easternTime = easternTime.replace(/ AM| PM/, "");
+
+           document.getElementById("time").textContent = easternTime;
+       }
+
+       // Update time every second
+       setInterval(updateTimeToEastern, 1000);
+
+       // Initialize time on page load
+       updateTimeToEastern();
+    </script>
+</body>
+</html>
